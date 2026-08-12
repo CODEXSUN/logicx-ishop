@@ -15,6 +15,11 @@ Changelog label: v 1.0.2
 #### App Codebase Changes
 
 - Bumped the LogicX iShop version to 1.0.2.
+- Aligned the GitHub workflow preview and prompts with CXApp.
+- Changed the default dry run to review the current changelog version without a bump.
+- Added an explicit `--dry-run --bump` preview for the next patch version.
+- Restored version and changelog files when a user cancels an uncommitted bump.
+- Added exact changelog metadata checks and latest-entry version validation.
 
 ## v-1.0.1
 

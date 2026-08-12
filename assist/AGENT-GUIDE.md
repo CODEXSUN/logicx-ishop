@@ -134,8 +134,8 @@ Report each check that ran. Report each unavailable live check as unavailable.
 
 - Preserve unrelated worktree changes.
 - Do not stage, commit, pull, push, tag, or publish without final user approval.
-- Run `python tools/github_now.py --dry-run --no-bump` before a current-version release.
-- Run `python tools/github_now.py --dry-run` before a patch-bump release.
+- Run `python tools/github_now.py --dry-run` before a current-version release.
+- Run `python tools/github_now.py --dry-run --bump` before a patch-bump release.
 - Review the version, subject, and changed file count.
 - Update `assist/documentation/CHANGELOG.md` with each release.
 

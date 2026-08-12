@@ -55,7 +55,7 @@ Do not claim database, browser, queue, or deployment proof from static checks.
 ```powershell
 python tools/version.py show
 python tools/version.py check
-python tools/github_now.py --dry-run --no-bump
+python tools/github_now.py --dry-run
 ```
 
 Use the patch bump command only when the release needs a new patch version.

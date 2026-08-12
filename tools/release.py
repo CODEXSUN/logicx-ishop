@@ -117,14 +117,17 @@ def check_versions(root: Path) -> tuple[str, list[str]]:
 	version = read_version(root)
 	failures: list[str] = []
 	changelog = (root / CHANGELOG_PATH).read_text(encoding="utf-8")
-	for label, value in [
-		("current version", f"Current version: {version}"),
-		("release tag", f"Release tag: v-{version}"),
-		("changelog label", f"Changelog label: v {version}"),
-		("version section", f"## v-{version}"),
+	for label, pattern in [
+		("current version", rf"^Current version:\s*{re.escape(version)}\s*$"),
+		("release tag", rf"^Release tag:\s*v-{re.escape(version)}\s*$"),
+		("changelog label", rf"^Changelog label:\s*v {re.escape(version)}\s*$"),
+		("version section", rf"^## v-{re.escape(version)}\s*$"),
 	]:
-		if value not in changelog:
-			failures.append(f"The changelog {label} must contain {value}.")
+		if not re.search(pattern, changelog, re.MULTILINE):
+			failures.append(f"The changelog {label} must match version {version}.")
+	latest = read_latest_release(root)
+	if latest.version != version:
+		failures.append(f"The latest changelog version is {latest.version}; expected {version}.")
 	return version, failures
 
 
@@ -178,7 +181,7 @@ def changed_files(root: Path) -> list[str]:
 def git_command(root: Path, *args: str) -> list[str]:
 	command = ["git", "-c", f"safe.directory={root}"]
 	if os.name == "nt" or root.as_posix().startswith("/workspace/"):
-		command.extend(["-c", "core.autocrlf=true", "-c", "core.fileMode=false"])
+		command.extend(["-c", "core.fileMode=false"])
 	return [*command, *args]
 
 

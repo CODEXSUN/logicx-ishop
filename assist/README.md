@@ -52,12 +52,14 @@ Review all changed files after the command completes.
 ## Preview the GitHub workflow
 
 ```powershell
-python tools/github_now.py --dry-run --no-bump
+python tools/github_now.py --dry-run
 ```
 
 This command previews the current version, commit subject, and changed file count.
 
 The dry run does not pull, stage, commit, or push changes.
+
+Use `--dry-run --bump` to preview the next patch version without changing files.
 
 Always run the dry run before the interactive GitHub workflow.
 

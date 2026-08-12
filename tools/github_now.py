@@ -7,14 +7,26 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from release import (
-	bump_next_version,
-	check_versions,
-	format_commit_subject,
-	git_command,
-	next_patch,
-	read_latest_release,
-)
+try:
+	from tools.release import (
+		ReleaseEntry,
+		bump_next_version,
+		check_versions,
+		format_commit_subject,
+		git_command,
+		next_patch,
+		read_latest_release,
+	)
+except ModuleNotFoundError:
+	from release import (
+		ReleaseEntry,
+		bump_next_version,
+		check_versions,
+		format_commit_subject,
+		git_command,
+		next_patch,
+		read_latest_release,
+	)
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,67 +40,89 @@ class ReleasePlan:
 
 def main() -> int:
 	args = parse_args()
+	validate_versions()
 	current = read_latest_release(ROOT)
-	next_version = next_patch(current.version)
-	preview_version = current.version if args.no_bump else next_version
-	preview_subject = (
-		format_commit_subject(current)
-		if args.no_bump
-		else f"#{int(preview_version.split('.')[2])} - {args.title}"
-	)
+	default_subject = format_commit_subject(current)
 
-	print(f"\n  Current version: {current.version}")
-	print(f"  Next version:    {next_version}")
+	print(f"\n  Changelog version: {current.version}")
+	print(f"  Commit subject:    {default_subject}")
 	file_count = show_status()
 	if args.dry_run:
-		print(render_review(file_count, preview_subject, preview_version))
-		print("  Dry run only. No version, pull, commit, or push change was made.\n")
+		version, subject = preview_release(args, current)
+		print(render_review(file_count, subject, version))
+		print("  Dry run only. No version, pull, stage, commit, or push change was made.\n")
 		return 0
 
-	plan = select_release_plan(args, current.title)
-	if plan.bump:
-		bump_next_version(ROOT, plan.title)
-	release = read_latest_release(ROOT)
-	default_subject = format_commit_subject(release)
-	subject = args.message or default_subject
-	if not args.yes:
-		subject = ask(f"  Commit message [{default_subject}]: ", default_subject).strip() or default_subject
+	print(render_review(file_count, default_subject, current.version))
+	version_snapshot = capture_release_files()
+	bump_pending = False
+	try:
+		plan = select_release_plan(args)
+		if plan.bump:
+			result = bump_next_version(ROOT, plan.title)
+			bump_pending = True
+			current = read_latest_release(ROOT)
+			default_subject = format_commit_subject(current)
+			print(f"\n  Bumped {result.current_version} -> {result.next_version}")
+			print(f"  Commit subject: {default_subject}\n")
 
-	validate_versions()
-	file_count = len(status_lines())
-	confirm_mutation(args, subject, release.version, file_count)
-	check_and_pull()
-	print("  > git add -A")
-	run_git("add", "-A")
-	print(f'  > git commit -m "{subject}"')
-	run_git("commit", "-m", subject)
-	print("  > git push")
-	run_git("push")
-	print(f"\n  Done - {subject}\n")
+		subject = args.message or ask(
+			f"  Commit message [{default_subject}]: ", default_subject
+		).strip() or default_subject
+		validate_versions()
+		file_count = len(status_lines())
+		if not file_count:
+			raise RuntimeError("There are no changes to commit.")
+		confirm_mutation(subject, current.version, file_count)
+		bump_pending = False
+		check_and_pull()
+		print("  > git add -A")
+		run_git("add", "-A")
+		print(f'  > git commit -m "{subject}"')
+		run_git("commit", "-m", subject)
+		print("  > git push")
+		run_git("push")
+		print(f"\n  Done - {subject}\n")
+	except Exception:
+		if bump_pending:
+			restore_release_files(version_snapshot)
+		raise
 	return 0
 
 
-def select_release_plan(args: argparse.Namespace, current_title: str) -> ReleasePlan:
-	if args.yes:
-		return ReleasePlan(not args.no_bump, args.title)
+def preview_release(args: argparse.Namespace, current: ReleaseEntry) -> tuple[str, str]:
+	if not args.bump:
+		return current.version, format_commit_subject(current)
+	version = next_patch(current.version)
+	return version, f"#{int(version.split('.')[2])} - {args.title}"
+
+
+def select_release_plan(args: argparse.Namespace) -> ReleasePlan:
 	if args.bump:
-		answer = "yes"
-	elif args.no_bump:
-		answer = "no"
-	else:
-		answer = ask("  Bump next version before commit? [y/N]: ")
+		return ReleasePlan(True, args.title)
+	if args.no_bump:
+		return ReleasePlan(False, args.title)
+	answer = ask("  Bump next version before commit? [y/N]: ")
 	if not is_yes(answer):
-		return ReleasePlan(False, current_title)
-	title = ask(f"  Version title [{args.title}]: ", args.title).strip() or args.title
+		return ReleasePlan(False, args.title)
+	title = ask("  Version title [version update]: ", "version update").strip() or "version update"
 	return ReleasePlan(True, title)
 
 
-def confirm_mutation(args: argparse.Namespace, subject: str, version: str, file_count: int) -> None:
+def confirm_mutation(subject: str, version: str, file_count: int) -> None:
 	print(render_review(file_count, subject, version))
-	if args.yes:
-		return
 	if not is_yes(ask("  Continue with pull, stage, commit, and push? [y/N]: ")):
 		raise RuntimeError("Cancelled.")
+
+
+def capture_release_files() -> dict[Path, bytes]:
+	files = [ROOT / "logicx_ishop/__init__.py", ROOT / "assist/documentation/CHANGELOG.md"]
+	return {file: file.read_bytes() for file in files}
+
+
+def restore_release_files(snapshot: dict[Path, bytes]) -> None:
+	for file, content in snapshot.items():
+		file.write_bytes(content)
 
 
 def check_and_pull() -> None:
@@ -143,7 +177,7 @@ def ask(question: str, default: str = "") -> str:
 		return input(question) or default
 	if os.name == "nt":
 		return ask_windows(question, default)
-	raise RuntimeError("Interactive input is required. Run this command in a terminal or use --yes.")
+	raise RuntimeError("Interactive input is required. Run this command in a terminal.")
 
 
 def ask_windows(question: str, default: str) -> str:
@@ -197,10 +231,10 @@ def run_git_quiet(*args: str) -> str:
 def parse_args() -> argparse.Namespace:
 	parser = argparse.ArgumentParser(description="Review and publish the current LogicX iShop changes.")
 	parser.add_argument("--dry-run", action="store_true")
-	parser.add_argument("--no-bump", action="store_true")
-	parser.add_argument("--bump", action="store_true")
-	parser.add_argument("--yes", action="store_true")
-	parser.add_argument("--title", default="Version update")
+	bump_group = parser.add_mutually_exclusive_group()
+	bump_group.add_argument("--no-bump", action="store_true")
+	bump_group.add_argument("--bump", action="store_true")
+	parser.add_argument("--title", default="version update")
 	parser.add_argument("--message")
 	return parser.parse_args()
 
