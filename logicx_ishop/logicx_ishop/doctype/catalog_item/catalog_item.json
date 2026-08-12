@@ -1,0 +1,26 @@
+{
+	"doctype": "DocType",
+	"name": "Catalog Item",
+	"module": "LogicX iShop",
+	"istable": 1,
+	"editable_grid": 1,
+	"track_changes": 1,
+	"sort_field": "idx",
+	"sort_order": "ASC",
+	"fields": [
+		{
+			"label": "iShop Item",
+			"fieldname": "ishop_item",
+			"fieldtype": "Link",
+			"options": "iShop Item",
+			"in_list_view": 1
+		},
+		{
+			"label": "Display Order",
+			"fieldname": "display_order",
+			"fieldtype": "Int",
+			"in_list_view": 1
+		}
+	],
+	"permissions": []
+}
