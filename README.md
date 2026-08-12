@@ -28,6 +28,28 @@ Pre-commit is configured to use the following tools for checking and formatting 
 - prettier
 - pyupgrade
 
+### Release commands
+
+The Python package version is the source for all release commands.
+
+```bash
+python tools/version.py show
+python tools/version.py check
+python tools/version.py bump --title "Version update"
+python tools/github_now.py --dry-run
+```
+
+Use the same workflow from an installed Bench app:
+
+```bash
+bench --site <site> logicx-ishop-release show
+bench --site <site> logicx-ishop-release check
+bench --site <site> logicx-ishop-release bump --title "Version update"
+bench --site <site> logicx-ishop-release github-now --dry-run
+```
+
+The GitHub workflow asks before it pulls, stages, commits, or pushes changes.
+
 ### License
 
 mit
