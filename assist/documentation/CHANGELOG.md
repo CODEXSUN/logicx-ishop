@@ -1,8 +1,22 @@
 # Changelog
 
-Current version: 1.0.2
-Release tag: v-1.0.2
-Changelog label: v 1.0.2
+Current version: 1.0.3
+Release tag: v-1.0.3
+Changelog label: v 1.0.3
+
+## v-1.0.3
+
+### [v 1.0.3] 2026-08-12 7:19 pm - Version update
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- Added a standard Desktop Icon export for LogicX iShop.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.3.
+- Added the LogicX iShop Desk desktop icon record with module routing and app roles.
 
 ## v-1.0.2
 

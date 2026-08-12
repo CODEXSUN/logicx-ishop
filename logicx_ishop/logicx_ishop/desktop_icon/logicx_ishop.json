@@ -1,0 +1,22 @@
+{
+	"doctype": "Desktop Icon",
+	"name": "LogicX iShop",
+	"label": "LogicX iShop",
+	"app": "logicx_ishop",
+	"standard": 1,
+	"icon": "shopping-cart",
+	"icon_type": "App",
+	"link_type": "External",
+	"link": "/desk/logicx-ishop",
+	"roles": [
+		{
+			"role": "System Manager"
+		},
+		{
+			"role": "TM Admin"
+		},
+		{
+			"role": "TM User"
+		}
+	]
+}
