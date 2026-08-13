@@ -1,8 +1,21 @@
 # Changelog
 
-Current version: 1.0.4
-Release tag: v-1.0.4
-Changelog label: v 1.0.4
+Current version: 1.0.5
+Release tag: v-1.0.5
+Changelog label: v 1.0.5
+
+## v-1.0.5
+
+### [v 1.0.5] 2026-08-13 8:10 am - Fix release tool package conflict
+
+#### Database Changes
+
+- Database update: No (auto-check).
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.5.
+- Loaded release helpers from the repository's exact `tools/release.py` path and removed the top-level `tools` package marker to prevent conflicts with other Frappe apps.
 
 ## v-1.0.4
 

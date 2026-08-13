@@ -1,15 +1,37 @@
 from __future__ import annotations
 
+import importlib.util
 import subprocess
 import sys
 from pathlib import Path
+from types import ModuleType
 
 import click
 
-from tools.release import append_changelog, bump_next_version, check_versions, read_version
-
-
 ROOT = Path(__file__).resolve().parent.parent
+RELEASE_MODULE_PATH = ROOT / "tools" / "release.py"
+
+
+def _load_release_module() -> ModuleType:
+	spec = importlib.util.spec_from_file_location("logicx_ishop_release_tools", RELEASE_MODULE_PATH)
+	if spec is None or spec.loader is None:
+		raise ImportError(f"Could not load release tools from {RELEASE_MODULE_PATH}.")
+
+	module = importlib.util.module_from_spec(spec)
+	sys.modules[spec.name] = module
+	try:
+		spec.loader.exec_module(module)
+	except Exception:
+		sys.modules.pop(spec.name, None)
+		raise
+	return module
+
+
+RELEASE_MODULE = _load_release_module()
+append_changelog = RELEASE_MODULE.append_changelog
+bump_next_version = RELEASE_MODULE.bump_next_version
+check_versions = RELEASE_MODULE.check_versions
+read_version = RELEASE_MODULE.read_version
 
 
 @click.group("logicx-ishop-release")
