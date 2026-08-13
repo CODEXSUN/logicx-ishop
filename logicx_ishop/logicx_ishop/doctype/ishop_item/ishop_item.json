@@ -19,7 +19,8 @@
 			"label": "ERPNext Item",
 			"fieldname": "erpnext_item",
 			"fieldtype": "Link",
-			"options": "Item"
+			"options": "Item",
+			"unique": 1
 		},
 		{
 			"label": "Item Code",

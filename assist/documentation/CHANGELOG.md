@@ -1,8 +1,41 @@
 # Changelog
 
-Current version: 1.0.6
-Release tag: v-1.0.6
-Changelog label: v 1.0.6
+Current version: 1.0.7
+Release tag: v-1.0.7
+Changelog label: v 1.0.7
+
+## v-1.0.7
+
+### [v 1.0.7] 2026-08-13 6:02 pm - Item iShop tab and unique ERPNext Item link
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- Added the `ishop_tab` Tab Break and `ishop_item_details_html` HTML Custom Fields to ERPNext Item
+  through `after_install` and the `logicx_ishop.patches.add_item_ishop_tab` patch.
+- Made `iShop Item.erpnext_item` unique, which adds a unique index on `tabiShop Item`. The
+  pre-model-sync patch `logicx_ishop.patches.validate_unique_erpnext_item` stops the migration with
+  the offending item codes when a site still holds duplicate links.
+- Run `bench --site <site> migrate` and `bench build --app logicx_ishop` on each site.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.7.
+- Added an iShop tab to the ERPNext Item form that lists the linked iShop Item with its code, name,
+  availability, item group, brand, web price, MRP, published state, highlights, short description,
+  image, and last update.
+- Added the permission-aware `logicx_ishop.custom.item.get_linked_ishop_items` read method and served
+  the tab through the `doctype_js` hook for Item.
+- Added distinct tab states for an unsaved Item, a missing iShop Item link, a missing iShop Item read
+  permission, and a failed load.
+- Showed the Create iShop Item button only when the Item has no linked iShop Item and the user holds
+  create permission, and opened the new form with ERPNext Item prefilled.
+- Styled the Open iShop Item button with a black background.
+- Limited each ERPNext Item to one iShop Item through the unique field and a readable controller
+  validation.
+- Stopped copying Full Description and Highlights from the ERPNext Item so both stay author-owned.
+- Added tests for the Item custom fields, linked and unlinked reads, rejected item names, the single
+  link rule, and the fields that are never autofilled.
 
 ## v-1.0.6
 

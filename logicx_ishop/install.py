@@ -1,10 +1,13 @@
 import frappe
 
+from logicx_ishop.custom.item import setup_item_custom_fields
+
 
 APP_LOGO_URL = "/assets/logicx_ishop/images/logicx-ishop-logo.svg?v=1"
 
 
 def after_install():
+	setup_item_custom_fields()
 	update_desktop_icon_logo()
 
 
