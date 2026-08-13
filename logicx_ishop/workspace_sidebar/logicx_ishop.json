@@ -1,0 +1,36 @@
+{
+ "app": "logicx_ishop",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "shopping-bag",
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "package",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "iShop Item",
+   "link_to": "iShop Item",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "book-open",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "iShop Catalog",
+   "link_to": "iShop Catalog",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "module": "LogicX iShop",
+ "name": "LogicX iShop",
+ "standard": 1,
+ "title": "LogicX iShop"
+}

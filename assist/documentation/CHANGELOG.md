@@ -1,10 +1,46 @@
 # Changelog
 
-Current version: 1.0.3
-Release tag: v-1.0.3
-Changelog label: v 1.0.3
+Current version: 1.0.4
+Release tag: v-1.0.4
+Changelog label: v 1.0.4
+
+## v-1.0.4
+
+### [v 1.0.4] 2026-08-13 7:52 am - CXShop catalog integration contract
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.4.
 
 ## v-1.0.3
+
+### [v 1.0.3] 2026-08-12 - CXShop catalog integration contract
+
+#### Database Changes
+
+- Database update: Yes. Replaced legacy TM DocType permissions with LogicX iShop User and LogicX
+  iShop Manager roles, while retaining explicit System Manager integration access.
+- Migrated both `tmshop.localhost` and the isolated `tmshop-test.localhost` sites and seeded the
+  deterministic `CXSHOP-DEMO-*` catalog through the API.
+
+#### App Codebase Changes
+
+- Connected LogicX iShop to the Frappe v16 Desk through an app-level Desktop Icon that is visible to all Desk users and opens the iShop Catalog.
+- Added renamed light and dark LogicX iShop logo assets and connected the light logo to the Desk icon, app screen, and reinstall hook.
+- Added an app-owned LogicX iShop Workspace Sidebar with package and catalog icons instead of Frappe's generic DocType list icons.
+- Moved ERPNext Item to the top of the iShop Item form and added permission-aware form autofill for item identity, descriptions, selling price, image, and highlights.
+- Kept ERPNext Item optional so iShop Items can also be entered independently.
+- Added permission-aware snapshot, batch upsert, and demo-seed methods for ERPNext Item, iShop Item,
+  iShop Catalog, and Catalog Item child records.
+- Added an integration test covering all four catalog layers on the isolated Frappe test site.
+- Expanded the idempotent demo catalog to 50 computer-related ERPNext and iShop items with images,
+  prices, brands, highlights, and 10 category catalogs for live CXShop posting.
+- Made demo Item, iShop Item, and iShop Catalog descriptions provider-neutral so the same business
+  content remains correct when CXShop switches between its local database and Frappe.
 
 ### [v 1.0.3] 2026-08-12 7:19 pm - Version update
 

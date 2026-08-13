@@ -4,6 +4,20 @@ app_publisher = "LogicX"
 app_description = "LogicX online shopping experience."
 app_email = "ashok@logicx.in"
 app_license = "mit"
+app_icon = "shopping-cart"
+app_color = "#172554"
+app_logo_url = "/assets/logicx_ishop/images/logicx-ishop-logo.svg?v=1"
+
+after_install = "logicx_ishop.install.after_install"
+
+add_to_apps_screen = [
+	{
+		"name": app_name,
+		"logo": app_logo_url,
+		"title": app_title,
+		"route": "/app/ishop-catalog",
+	}
+]
 
 # Apps
 # ------------------
@@ -255,4 +269,3 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
