@@ -1,8 +1,26 @@
 # Changelog
 
-Current version: 1.0.5
-Release tag: v-1.0.5
-Changelog label: v 1.0.5
+Current version: 1.0.6
+Release tag: v-1.0.6
+Changelog label: v 1.0.6
+
+## v-1.0.6
+
+### [v 1.0.6] 2026-08-13 11:40 am - Desktop icon rename to iShop LogicX
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- Renamed the standard Desktop Icon record from `LogicX iShop` to `iShop LogicX`. A migration
+  inserts the renamed record, so remove the stale `LogicX iShop` Desktop Icon on each existing site.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.6.
+- Renamed the Desktop Icon export from `desktop_icon/logicx_ishop.json` to
+  `desktop_icon/ishop_logicx.json` so the file name matches the record name.
+- Changed the Desktop Icon `name` and `label` to `iShop LogicX`.
+- Kept the Desktop Icon pointed at `/app/ishop-catalog`.
 
 ## v-1.0.5
 
