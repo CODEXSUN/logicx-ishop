@@ -1,8 +1,25 @@
 # Changelog
 
-Current version: 1.0.8
-Release tag: v-1.0.8
-Changelog label: v 1.0.8
+Current version: 1.0.9
+Release tag: v-1.0.9
+Changelog label: v 1.0.9
+
+## v-1.0.9
+
+### [v 1.0.9] 2026-08-14 6:25 pm - Open iShop Item button beside the image
+
+#### Database Changes
+
+- Database update: No (auto-check).
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.9.
+- Moved the Open iShop Item button out of the card header and placed it next to the iShop Item image
+  on the ERPNext Item iShop tab.
+- Kept the card title on its own line and aligned the image and the button in one centered row with a
+  small gap, so the button stays beside the image and starts the row when the iShop Item has no image.
+- Run `bench build --app logicx_ishop` on each site. This release changes only the Item client script.
 
 ## v-1.0.8
 

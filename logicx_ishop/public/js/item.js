@@ -88,18 +88,18 @@ function item_card(row) {
 	const image = row.image
 		? `<img src="${frappe.utils.escape_html(row.image)}" alt="${frappe.utils.escape_html(
 				row.item_name || row.item_code || ""
-		  )}" style="max-height: 80px; border-radius: var(--border-radius); margin-bottom: var(--margin-sm);">`
+		  )}" style="max-height: 80px; border-radius: var(--border-radius);">`
 		: "";
 
 	return $(`
 		<div class="frappe-card mb-4 p-3">
-			<div class="d-flex justify-content-between align-items-center mb-2">
-				<h6 class="mb-0">${frappe.utils.escape_html(row.item_name || row.item_code || row.name)}</h6>
+			<h6 class="mb-2">${frappe.utils.escape_html(row.item_name || row.item_code || row.name)}</h6>
+			<div class="d-flex align-items-center mb-3" style="gap: var(--margin-sm);">
+				${image}
 				<a class="btn btn-xs" href="${link}" style="background-color: #000; border-color: #000; color: #fff;">${__(
 					"Open iShop Item"
 				)}</a>
 			</div>
-			${image}
 			<div class="row">${rows}</div>
 		</div>
 	`);
