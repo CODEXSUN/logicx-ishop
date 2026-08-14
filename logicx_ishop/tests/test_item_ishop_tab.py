@@ -9,14 +9,32 @@ class TestItemIShopTab(IntegrationTestCase):
 		setup_item_custom_fields()
 
 		self.assertEqual(
-			frappe.db.get_value("Custom Field", {"dt": "Item", "fieldname": "ishop_tab"}, "fieldtype"),
-			"Tab Break",
+			frappe.db.get_value(
+				"Custom Field", {"dt": "Item", "fieldname": "ishop_tab"}, ["fieldtype", "insert_after"]
+			),
+			("Tab Break", "uoms"),
 		)
 		self.assertEqual(
 			frappe.db.get_value(
-				"Custom Field", {"dt": "Item", "fieldname": "ishop_item_details_html"}, "fieldtype"
+				"Custom Field",
+				{"dt": "Item", "fieldname": "ishop_item_details_html"},
+				["fieldtype", "insert_after"],
 			),
-			"HTML",
+			("HTML", "ishop_tab"),
+		)
+
+	def test_ishop_tab_is_moved_after_uoms_on_existing_sites(self):
+		setup_item_custom_fields()
+		field = frappe.get_doc("Custom Field", {"dt": "Item", "fieldname": "ishop_tab"})
+		field.insert_after = "details"
+		field.flags.ignore_validate = True
+		field.save()
+
+		setup_item_custom_fields()
+
+		self.assertEqual(
+			frappe.db.get_value("Custom Field", {"dt": "Item", "fieldname": "ishop_tab"}, "insert_after"),
+			"uoms",
 		)
 
 	def test_linked_ishop_items_are_reported_per_item(self):

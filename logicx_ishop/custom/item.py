@@ -11,7 +11,7 @@ ITEM_CUSTOM_FIELDS = {
 			"fieldname": "ishop_tab",
 			"label": "iShop",
 			"fieldtype": "Tab Break",
-			"insert_after": "details",
+			"insert_after": "uoms",
 		},
 		{
 			"fieldname": "ishop_item_details_html",

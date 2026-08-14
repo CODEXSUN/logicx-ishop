@@ -1,8 +1,29 @@
 # Changelog
 
-Current version: 1.0.7
-Release tag: v-1.0.7
-Changelog label: v 1.0.7
+Current version: 1.0.8
+Release tag: v-1.0.8
+Changelog label: v 1.0.8
+
+## v-1.0.8
+
+### [v 1.0.8] 2026-08-14 6:11 pm - Item iShop tab after the UOM table
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- FIXED: Moved the `ishop_tab` Tab Break on ERPNext Item from after `details` to after `uoms`, so the iShop
+  tab now follows the Units of Measure table. The `ishop_item_details_html` field stays anchored to
+  `ishop_tab` and moves with it.
+- Added the post-model-sync patch `logicx_ishop.patches.move_item_ishop_tab_after_uoms`, which
+  rewrites the Custom Field position on sites that already applied
+  `logicx_ishop.patches.add_item_ishop_tab` and clears the Item cache. The patch is safe to rerun.
+- Run `bench --site <site> migrate` on each site.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.8.
+- Changed the `insert_after` value of the Item iShop tab Custom Field definition to `uoms`.
+- Added tests for the new tab position and for the move from the previous `details` position.
 
 ## v-1.0.7
 

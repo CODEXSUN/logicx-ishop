@@ -6,3 +6,4 @@ logicx_ishop.patches.validate_unique_erpnext_item
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
 logicx_ishop.patches.add_item_ishop_tab
+logicx_ishop.patches.move_item_ishop_tab_after_uoms
