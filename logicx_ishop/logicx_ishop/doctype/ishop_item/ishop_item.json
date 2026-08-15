@@ -84,6 +84,11 @@
 			"fieldtype": "Data"
 		},
 		{
+			"label": "Image Preview",
+			"fieldname": "image_preview",
+			"fieldtype": "HTML"
+		},
+		{
 			"label": "Image",
 			"fieldname": "image",
 			"fieldtype": "Attach Image",

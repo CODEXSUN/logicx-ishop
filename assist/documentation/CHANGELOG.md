@@ -1,8 +1,31 @@
 # Changelog
 
-Current version: 1.0.10
-Release tag: v-1.0.10
-Changelog label: v 1.0.10
+Current version: 1.0.11
+Release tag: v-1.0.11
+Changelog label: v 1.0.11
+
+## v-1.0.11
+
+### [v 1.0.11] 2026-08-15 5:12 pm - iShop Item image preview
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- Added the `image_preview` HTML field to iShop Item, placed between `highlights` and `image` in the
+  second column of the details section. The field stores nothing, so no stored data changes.
+- Run `bench --site <site> migrate` and `bench build --app logicx_ishop` on each site.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.11.
+- Added an image preview above the Image field on the iShop Item form, so the attached image is
+  visible without opening the file.
+- Rendered the preview at the full width of the details column, capped at 70% of the viewport height
+  and fitted with `object-fit: contain`, so the image stays as large as the column allows without
+  distortion or overflow.
+- Hid the preview when the iShop Item has no image, so the form keeps its layout.
+- Redrew the preview on form refresh and on every change of the Image field, including the image that
+  the ERPNext Item autofill sets.
 
 ## v-1.0.10
 

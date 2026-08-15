@@ -1,4 +1,40 @@
+function render_image_preview(frm) {
+	const field = frm.get_field("image_preview");
+	if (!field) {
+		return;
+	}
+
+	field.$wrapper.empty();
+	frm.toggle_display("image_preview", !!frm.doc.image);
+
+	if (!frm.doc.image) {
+		return;
+	}
+
+	field.$wrapper.append(
+		$("<img>")
+			.attr("src", frm.doc.image)
+			.attr("alt", frm.doc.item_name || __("Image"))
+			.css({
+				width: "100%",
+				height: "auto",
+				"max-height": "70vh",
+				"object-fit": "contain",
+				"border-radius": "var(--border-radius-md)",
+				border: "1px solid var(--border-color)",
+			})
+	);
+}
+
 frappe.ui.form.on("iShop Item", {
+	refresh(frm) {
+		render_image_preview(frm);
+	},
+
+	image(frm) {
+		render_image_preview(frm);
+	},
+
 	async erpnext_item(frm) {
 		const selectedItem = frm.doc.erpnext_item;
 		if (!selectedItem) {
