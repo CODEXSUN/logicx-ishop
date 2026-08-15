@@ -1,8 +1,32 @@
 # Changelog
 
-Current version: 1.0.9
-Release tag: v-1.0.9
-Changelog label: v 1.0.9
+Current version: 1.0.10
+Release tag: v-1.0.10
+Changelog label: v 1.0.10
+
+## v-1.0.10
+
+### [v 1.0.10] 2026-08-15 4:35 pm - iShop Item form layout
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- Re-laid out the iShop Item form with three new layout fields: the `details_section` Section Break,
+  the `details_column` Column Break, and the `description_section` Section Break. The stored data is
+  untouched, since only the field order and the layout fields change.
+- Restricted the `Catalog Item.ishop_item` link to published iShop Items through the `link_filters`
+  property, so the link search no longer offers unpublished items.
+- Run `bench --site <site> migrate` on each site.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.10.
+- Grouped the iShop Item identity, classification, and price fields in the first column of the details
+  section: ERPNext Item, Item Code, Item Name, Availability, Item Group, Brand, Web Price, and MRP.
+- Moved Highlights, Image, and Published into the second column of the details section, so the image
+  and its publish state sit beside the item details.
+- Moved Short Description and Full Description into their own full-width section below the details.
+- Left both section breaks unlabelled, so the form keeps the layout without extra headings.
 
 ## v-1.0.9
 
