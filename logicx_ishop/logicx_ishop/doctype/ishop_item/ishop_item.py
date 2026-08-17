@@ -6,7 +6,7 @@ from frappe.utils import strip_html
 
 class IShopItem(Document):
 	def before_validate(self):
-		if self.erpnext_item:
+		if self.is_new() and self.erpnext_item:
 			self._fill_missing_erpnext_values()
 
 	def validate(self):
@@ -58,20 +58,8 @@ def get_erpnext_item_defaults(item_name: str):
 		"item_group": item.item_group,
 		"brand": item.brand,
 		"short_description": _plain_text(item.description or ""),
-		"web_price": _selling_price(item),
 		"image": item.image,
 	}
-
-
-def _selling_price(item):
-	price = frappe.get_all(
-		"Item Price",
-		filters={"item_code": item.item_code, "selling": 1},
-		fields=["price_list_rate"],
-		order_by="valid_from desc, modified desc",
-		limit_page_length=1,
-	)
-	return price[0].price_list_rate if price else item.standard_rate
 
 
 def _plain_text(value: str):

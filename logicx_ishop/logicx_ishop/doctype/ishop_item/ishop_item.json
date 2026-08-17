@@ -45,7 +45,7 @@
 			"label": "Availability",
 			"fieldname": "availability",
 			"fieldtype": "Select",
-			"options": "Immediately\nTomorrow\nIn 2 days\nIn 3 days",
+			"options": "Immediately\nTomorrow\nIn 2 days\nIn 3 days\nNot Available",
 			"reqd": 1
 		},
 		{
@@ -75,13 +75,13 @@
 			"fieldtype": "Currency"
 		},
 		{
-			"fieldname": "details_column",
-			"fieldtype": "Column Break"
-		},
-		{
 			"label": "Highlights",
 			"fieldname": "highlights",
 			"fieldtype": "Data"
+		},
+		{
+			"fieldname": "details_column",
+			"fieldtype": "Column Break"
 		},
 		{
 			"label": "Image Preview",

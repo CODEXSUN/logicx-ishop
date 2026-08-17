@@ -1,8 +1,30 @@
 # Changelog
 
-Current version: 1.0.11
-Release tag: v-1.0.11
-Changelog label: v 1.0.11
+Current version: 1.0.12
+Release tag: v-1.0.12
+Changelog label: v 1.0.12
+
+## v-1.0.12
+
+### [v 1.0.12] 2026-08-17 1:20 pm - ERPNext autofill on creation only
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- Added the `Not Available` option to the `availability` Select field on iShop Item, so an item can be
+  marked as out of stock. Existing values stay valid.
+- Moved the `highlights` field above the `details_column` Column Break on iShop Item, so Highlights
+  now closes the first column of the details section instead of opening the second.
+- Added the `TM User`, `TM Admin`, `LogicX iShop Manager`, and `System Manager` roles to the
+  `iShop LogicX` Desktop Icon, so the icon is shown to those roles instead of every Desk user.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.12.
+- Restricted the ERPNext Item autofill in `before_validate` to new documents through `is_new()`, so a
+  field that the author clears on an existing iShop Item is no longer refilled on the next save.
+- Stopped copying Web Price from the ERPNext Item and removed the `_selling_price` helper, so the
+  iShop web price stays author-owned like Full Description and Highlights.
 
 ## v-1.0.11
 
@@ -13,7 +35,6 @@ Changelog label: v 1.0.11
 - Database update: Yes (auto-check).
 - Added the `image_preview` HTML field to iShop Item, placed between `highlights` and `image` in the
   second column of the details section. The field stores nothing, so no stored data changes.
-- Run `bench --site <site> migrate` and `bench build --app logicx_ishop` on each site.
 
 #### App Codebase Changes
 
