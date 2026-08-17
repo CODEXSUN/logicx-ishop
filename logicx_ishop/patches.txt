@@ -7,3 +7,4 @@ logicx_ishop.patches.validate_unique_erpnext_item
 # Patches added in this section will be executed after doctypes are migrated
 logicx_ishop.patches.add_item_ishop_tab
 logicx_ishop.patches.move_item_ishop_tab_after_uoms
+logicx_ishop.patches.clear_desktop_icon_roles
