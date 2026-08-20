@@ -44,6 +44,19 @@
    "link_type": "Report",
    "show_arrow": 0,
    "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "small-file",
+   "indent": 0,
+   "is_query_report": 1,
+   "keep_closed": 0,
+   "label": "Item Statistics",
+   "link_to": "Item Statistics",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
   }
  ]
 }

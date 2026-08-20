@@ -1,8 +1,38 @@
 # Changelog
 
-Current version: 1.0.16
-Release tag: v-1.0.16
-Changelog label: v 1.0.16
+Current version: 1.0.17
+Release tag: v-1.0.17
+Changelog label: v 1.0.17
+
+## v-1.0.17
+
+### [v 1.0.17] 2026-08-20 6:58 pm - Item Statistics report
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- Added the `Item Statistics` standard Report record for the `iShop Item` DocType, inserted on
+  migrate. No table or field changes, so the stored data is untouched.
+- Updated the standard `LogicX iShop` Workspace Sidebar record, which is synced on migrate.
+- Removed the `logicx_ishop.patches.remove_item_statistics_report` post model sync patch entry and
+  its patch file. The patch deleted the `Item Statistics` Report record, and that name is now a live
+  report again, so on a site that had not yet run the patch it would delete the new report right
+  after migrate synced it. Sites that already ran the patch keep their Patch Log row and are not
+  affected. A site still on 1.0.13 to 1.0.15 has its old `Item Statistics` record replaced by the new
+  standard record on migrate, so no cleanup is needed.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.17.
+- Added the `Item Statistics` script report under `logicx_ishop/logicx_ishop/report/item_statistics`,
+  which lists one row per iShop Item instead of the grouped counts of `Item Group Statistics`.
+- Reported the Item Group, Brand, Item ID, Item Name, Web Price, MRP, Published, Availability, and
+  Highlights columns in that order, ordered by Item Group, Brand, and Item Name, with no total row.
+- Reused the `Item Group Statistics` filters: the mandatory `Type` filter with the Published,
+  Non-Published, Image Set, Image Not Set, Price Set, Price Not Set, and All Items options defaulting
+  to Published, plus the optional `Item Group` and `Brand` link filters passed as bound parameters.
+- Added the `Item Statistics` query report link to the `LogicX iShop` workspace sidebar, below the
+  `Item Group Statistics` link.
 
 ## v-1.0.16
 
