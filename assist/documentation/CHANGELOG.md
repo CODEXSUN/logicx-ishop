@@ -1,8 +1,24 @@
 # Changelog
 
-Current version: 1.0.13
-Release tag: v-1.0.13
-Changelog label: v 1.0.13
+Current version: 1.0.14
+Release tag: v-1.0.14
+Changelog label: v 1.0.14
+
+## v-1.0.14
+
+### [v 1.0.14] 2026-08-20 5:33 pm - Item Statistics sidebar link
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- Updated the standard `LogicX iShop` Workspace Sidebar record, which is synced on migrate. No table
+  or field changes, so the stored data is untouched.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.14.
+- Added the `Item Statistics` query report link to the `LogicX iShop` workspace sidebar, so the report
+  is opened from the sidebar instead of the report list.
 
 ## v-1.0.13
 
