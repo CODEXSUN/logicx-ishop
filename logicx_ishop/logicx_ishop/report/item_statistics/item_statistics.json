@@ -1,0 +1,28 @@
+{
+	"doctype": "Report",
+	"name": "Item Statistics",
+	"report_name": "Item Statistics",
+	"report_type": "Script Report",
+	"module": "LogicX iShop",
+	"ref_doctype": "iShop Item",
+	"is_standard": "Yes",
+	"add_total_row": 1,
+	"prepared_report": 0,
+	"letter_head": null,
+	"columns": [],
+	"filters": [],
+	"roles": [
+		{
+			"role": "System Manager"
+		},
+		{
+			"role": "TM Admin"
+		},
+		{
+			"role": "TM User"
+		},
+		{
+			"role": "LogicX iShop Manager"
+		}
+	]
+}

@@ -1,8 +1,33 @@
 # Changelog
 
-Current version: 1.0.12
-Release tag: v-1.0.12
-Changelog label: v 1.0.12
+Current version: 1.0.13
+Release tag: v-1.0.13
+Changelog label: v 1.0.13
+
+## v-1.0.13
+
+### [v 1.0.13] 2026-08-20 1:37 pm - Item Statistics report
+
+#### Database Changes
+
+- Database update: Yes (manual).
+- Added the `Item Statistics` standard Report record for the `iShop Item` DocType, inserted on
+  migrate. No table or field changes, so the stored data is untouched.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.13.
+- Added the `Item Statistics` script report under `logicx_ishop/logicx_ishop/report/item_statistics`,
+  along with the new `report` package, so iShop Item coverage can be reviewed without exporting the
+  list view.
+- Reported one row per Item Group and Brand pair with the matching iShop Item count, ordered by count
+  descending, with a total row.
+- Added the mandatory `Type` filter with the Published, Non-Published, Image Set, Image Not Set,
+  Price Set, Price Not Set, and All Items options, defaulting to Published. Price Set and Price Not
+  Set read `web_price`, and All Items counts every iShop Item.
+- Labelled the count column with the selected Type, so the column header reads Published, Image Not
+  Set, or whichever option is in use.
+- Granted the report to the `System Manager`, `TM Admin`, `TM User`, and `LogicX iShop Manager` roles.
 
 ## v-1.0.12
 
