@@ -1,8 +1,22 @@
 # Changelog
 
-Current version: 1.0.14
-Release tag: v-1.0.14
-Changelog label: v 1.0.14
+Current version: 1.0.15
+Release tag: v-1.0.15
+Changelog label: v 1.0.15
+
+## v-1.0.15
+
+### [v 1.0.15] 2026-08-20 5:39 pm - Item Statistics column widths
+
+#### Database Changes
+
+- Database update: No (auto-check).
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.15.
+- Narrowed the `Item Group` column of the `Item Statistics` report from 300 to 250 and the `Brand`
+  column from 250 to 150, so the count column is read without scrolling the report.
 
 ## v-1.0.14
 

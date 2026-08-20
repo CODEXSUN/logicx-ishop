@@ -33,14 +33,14 @@ def get_columns(selected_type):
 			"fieldname": "item_group",
 			"fieldtype": "Link",
 			"options": "Item Group",
-			"width": 300,
+			"width": 250,
 		},
 		{
 			"label": _("Brand"),
 			"fieldname": "brand",
 			"fieldtype": "Link",
 			"options": "Brand",
-			"width": 250,
+			"width": 150,
 		},
 		{
 			# the count column is labelled with the Type being counted, e.g. "Image Not Set"
