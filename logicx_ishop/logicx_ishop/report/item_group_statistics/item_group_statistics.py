@@ -23,7 +23,7 @@ def execute(filters=None):
 	if selected_type not in TYPE_CONDITIONS:
 		frappe.throw(_("Invalid Type: {0}").format(selected_type))
 
-	return get_columns(selected_type), get_data(selected_type)
+	return get_columns(selected_type), get_data(selected_type, filters)
 
 
 def get_columns(selected_type):
@@ -52,7 +52,16 @@ def get_columns(selected_type):
 	]
 
 
-def get_data(selected_type):
+def get_data(selected_type, filters):
+	conditions = [TYPE_CONDITIONS[selected_type]]
+	params = {}
+	if filters.get("item_group"):
+		conditions.append("item.item_group = %(item_group)s")
+		params["item_group"] = filters["item_group"]
+	if filters.get("brand"):
+		conditions.append("item.brand = %(brand)s")
+		params["brand"] = filters["brand"]
+
 	return frappe.db.sql(
 		f"""
 		SELECT
@@ -60,9 +69,10 @@ def get_data(selected_type):
 			item.brand,
 			COUNT(item.name) AS count
 		FROM `tabiShop Item` item
-		WHERE {TYPE_CONDITIONS[selected_type]}
+		WHERE {" AND ".join(conditions)}
 		GROUP BY item.item_group, item.brand
 		ORDER BY count DESC, item.item_group, item.brand
 		""",
+		params,
 		as_dict=True,
 	)

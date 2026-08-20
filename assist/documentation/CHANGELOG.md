@@ -1,8 +1,31 @@
 # Changelog
 
-Current version: 1.0.15
-Release tag: v-1.0.15
-Changelog label: v 1.0.15
+Current version: 1.0.16
+Release tag: v-1.0.16
+Changelog label: v 1.0.16
+
+## v-1.0.16
+
+### [v 1.0.16] 2026-08-20 6:41 pm - Item Group Statistics rename and filters
+
+#### Database Changes
+
+- Database update: Yes (auto-check).
+- Renamed the standard Report record from `Item Statistics` to `Item Group Statistics`, which migrate
+  inserts under the new name. No table or field changes, so the stored data is untouched.
+- Added the `logicx_ishop.patches.remove_item_statistics_report` post model sync patch, which deletes
+  the `Item Statistics` Report record left behind by the rename on sites that already ran 1.0.13 to
+  1.0.15.
+
+#### App Codebase Changes
+
+- Bumped the LogicX iShop version to 1.0.16.
+- Renamed the report to `Item Group Statistics` and moved it to
+  `logicx_ishop/logicx_ishop/report/item_group_statistics`, so the report name states that the counts
+  are grouped by Item Group.
+- Pointed the `LogicX iShop` workspace sidebar link at the renamed report.
+- Added the optional `Item Group` and `Brand` link filters, each passed to the query as a bound
+  parameter, so the counts are narrowed to one group, one brand, or both.
 
 ## v-1.0.15
 

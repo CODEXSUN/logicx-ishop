@@ -1,4 +1,4 @@
-frappe.query_reports["Item Statistics"] = {
+frappe.query_reports["Item Group Statistics"] = {
 	filters: [
 		{
 			fieldname: "type",
@@ -15,6 +15,18 @@ frappe.query_reports["Item Statistics"] = {
 			].join("\n"),
 			default: "Published",
 			reqd: 1,
+		},
+		{
+			fieldname: "item_group",
+			label: __("Item Group"),
+			fieldtype: "Link",
+			options: "Item Group",
+		},
+		{
+			fieldname: "brand",
+			label: __("Brand"),
+			fieldtype: "Link",
+			options: "Brand",
 		},
 	],
 };

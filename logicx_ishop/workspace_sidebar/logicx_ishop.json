@@ -39,8 +39,8 @@
    "indent": 0,
    "is_query_report": 1,
    "keep_closed": 0,
-   "label": "Item Statistics",
-   "link_to": "Item Statistics",
+   "label": "Item Group Statistics",
+   "link_to": "Item Group Statistics",
    "link_type": "Report",
    "show_arrow": 0,
    "type": "Link"
